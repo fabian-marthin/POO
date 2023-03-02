@@ -7,7 +7,7 @@ function videoPlay(id) {
     console.log("Pausamos la url " + urlSecreta);
   }
   
-  export class PlatziClass {
+  class PlatziClass {
     constructor({
       name,
       videoID,
@@ -23,19 +23,18 @@ function videoPlay(id) {
       videoStop(this.videoID);
     }
   }
-
-
-
-
-
   
   class Course {
     constructor({
       name,
       classes = [],
+      isFree = false,
+      lang = "spanish"
     }) {
       this._name = name;
       this.classes = classes;
+      this.isFree = isFree;
+      this.lang = lang;
     }
   
     get name() {
@@ -53,6 +52,7 @@ function videoPlay(id) {
   
   const cursoProgBasica = new Course({
     name: "Curso Gratis de Programación Básica",
+    isFree: true
   });
   
   const cursoDefinitivoHTML = new Course({
@@ -60,6 +60,7 @@ function videoPlay(id) {
   });
   const cursoPracticoHTML = new Course({
     name: "Curso Practico de HTML y CSS",
+    lang: "english"
   });
   
   
@@ -123,8 +124,41 @@ function videoPlay(id) {
       this.learningPaths = learningPaths;
     }
   }
+
+  class FreeStudent extends Student{
+    constructor(probs){
+      super(probs)
+    }
+    approveCourse(newCourse){
+      if(newCourse.isFree){
+        this.approvedCourses.push(newCourse);
+      } else{
+        console.warn( "lo sentimos" + this.name + ", solo puedes acceder a cursos abiertos");
+      }
+    }
+  }
+  class BasicStudent extends Student{
+constructor(probs){
+    super(probs)
+    }
+    approveCourse(newCourse){
+      if(newCourse.lang !== "english"){
+        this.approvedCourses.push(newCourse);
+      } else {
+        console.warn("lo sentimos" + this.name + ", solo puedes acceder a cursos en español");
+      }
+    }
+  }
+  class ExpertStudent extends Student{
+    constructor(probs){
+      super(probs)
+    }
+    approveCourse(newCourse){
+      this.approvedCourses.push(newCourse);
+    }
+  }
   
-  const juan2 = new Student({
+  const juan = new BasicStudent({
     name: "JuanDC",
     username: "juandc",
     email: "juanito@juanito.com",
@@ -135,7 +169,7 @@ function videoPlay(id) {
     ],
   });
   
-  const miguelito2 = new Student({
+  const miguelito = new FreeStudent({
     name: "Miguelito",
     username: "migelitofeliz",
     email: "miguelito@juanito.com",
@@ -143,5 +177,16 @@ function videoPlay(id) {
     learningPaths: [
       escuelaWeb,
       escuelaData,
+    ],
+  });
+
+  const carlos = new ExpertStudent({
+    name: "Carlos",
+    username: "Carlrojo",
+    email: "carson@gmail.com",
+    twitter: "ccarl",
+    learningPaths: [
+      escuelaWeb,
+      escuelaVgs,
     ],
   });
