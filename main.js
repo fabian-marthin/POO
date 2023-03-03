@@ -52,7 +52,7 @@ function videoPlay(id) {
   
   const cursoProgBasica = new Course({
     name: "Curso Gratis de Programación Básica",
-    isFree: true
+    isFree: true,
   });
   
   const cursoDefinitivoHTML = new Course({
@@ -60,7 +60,7 @@ function videoPlay(id) {
   });
   const cursoPracticoHTML = new Course({
     name: "Curso Practico de HTML y CSS",
-    lang: "english"
+    lang: "english",
   });
   
   
@@ -130,6 +130,7 @@ function videoPlay(id) {
       super(probs)
     }
     approveCourse(newCourse){
+      console.log(newCourse);
       if(newCourse.isFree){
         this.approvedCourses.push(newCourse);
       } else{
@@ -142,6 +143,7 @@ constructor(probs){
     super(probs)
     }
     approveCourse(newCourse){
+      console.log(newCourse);
       if(newCourse.lang !== "english"){
         this.approvedCourses.push(newCourse);
       } else {
