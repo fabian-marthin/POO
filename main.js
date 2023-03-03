@@ -1,3 +1,21 @@
+class Comment {
+  constructor({
+    userName,
+    userRole = "Estudiante",
+    comentario
+  }) {
+    this.userName = userName;
+    this.userRole = userRole;
+    this.comentario = comentario;
+    this.likes = 0;
+  }
+  publicar (){
+      console.log(this.userName + "(" + this.userRole + ")");
+      console.log(this.comentario);
+      console.log(this.likes + "likes");
+  }
+}
+
 function videoPlay(id) {
     const urlSecreta = "https://platziultrasecretomasquelanasa.com/" + id;
     console.log("Se está reproduciendo desde la url " + urlSecreta);
@@ -123,6 +141,13 @@ function videoPlay(id) {
       this.approvedCourses = approvedCourses;
       this.learningPaths = learningPaths;
     }
+    publicarComentario(nuevoComentario){
+      const contenido = new Comment ({
+        comentario: nuevoComentario,
+        userName: this.name
+      })
+      contenido.publicar();
+    }
   }
 
   class FreeStudent extends Student{
@@ -159,7 +184,24 @@ constructor(probs){
       this.approvedCourses.push(newCourse);
     }
   }
+  class TeacherStudent extends Student{
+    constructor(probs){
+      super(probs)
+    }
+    approveCourse(newCourse){
+        this.approvedCourses.push(newCourse);
+    }
+    publicarComentario(nuevoComentario){
+      const contenido = new Comment ({
+        comentario: nuevoComentario,
+        userName: this.name,
+        userRole: "Teacher"
+      })
+      contenido.publicar();
+    }
+  }
   
+
   const juan = new BasicStudent({
     name: "JuanDC",
     username: "juandc",
@@ -170,7 +212,6 @@ constructor(probs){
       escuelaVgs,
     ],
   });
-  
   const miguelito = new FreeStudent({
     name: "Miguelito",
     username: "migelitofeliz",
@@ -181,7 +222,6 @@ constructor(probs){
       escuelaData,
     ],
   });
-
   const carlos = new ExpertStudent({
     name: "Carlos",
     username: "Carlrojo",
@@ -190,5 +230,13 @@ constructor(probs){
     learningPaths: [
       escuelaWeb,
       escuelaVgs,
+    ],
+  });
+  const Freddy = new TeacherStudent({
+    name: "Freddy Vega",
+    username: "Freddier",
+    email: "freddyn@gmail.com",
+    twitter: "FreddyVega",
+    learningPaths: [
     ],
   });
